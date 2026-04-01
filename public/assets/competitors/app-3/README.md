@@ -1,7 +1,7 @@
-Upload COMPETITOR 3 app screenshots here (phone 9:16 format):
+Upload COMPETITOR 3 app screenshots here (png, jpg, svg, or webp):
 
-- login.png → Login Screen
-- home.png → Home Screen
-- money-transfer.png → Money Transfer Screen
-- payment.png → Payment Screen
-- confirmation.png → Confirmation Page
+- login.png (or .jpg) → Login Screen
+- home.png (or .jpg) → Home Screen
+- money-transfer.png (or .jpg) → Money Transfer Screen
+- payment.png (or .jpg) → Payment Screen
+- confirmation.png (or .jpg) → Confirmation Page

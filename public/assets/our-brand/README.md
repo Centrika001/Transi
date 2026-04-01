@@ -1,4 +1,4 @@
-Upload your brand assets here:
+Upload your brand assets here (png, jpg, svg, or webp):
 
-- logo.png → Shows in "Our Brand" section, slide 1
-- avatar.png → Shows in "Our Brand" section, slide 2
+- logo.png (or logo.jpg) → Shows in "Our Brand" section, slide 1
+- avatar.png (or avatar.jpg) → Shows in "Our Brand" section, slide 2

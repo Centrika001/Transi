@@ -3,6 +3,7 @@ import { saveImage, loadImage, deleteImage } from '../imageStore.js'
 
 export default function ImageWithFallback({ src, alt, className, storageKey }) {
   const [objectUrl, setObjectUrl] = useState(null)
+  const [fileSrc, setFileSrc] = useState(null)
   const [source, setSource] = useState(null) // 'db' | 'file' | null
   const [loaded, setLoaded] = useState(false)
   const [dragging, setDragging] = useState(false)
@@ -13,6 +14,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
     let cancelled = false
     let url = null
     setObjectUrl(null)
+    setFileSrc(null)
     setSource(null)
     setLoaded(false)
 
@@ -24,18 +26,29 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
         setSource('db')
         setLoaded(true)
       } else {
-        // Try static file via a HEAD request
-        fetch(src, { method: 'HEAD' })
-          .then((res) => {
-            if (cancelled) return
-            if (res.ok) {
-              setSource('file')
-            }
+        // Try static file with multiple extensions
+        const base = src.replace(/\.[^.]+$/, '')
+        const extensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp']
+        const tryNext = (i) => {
+          if (cancelled) return
+          if (i >= extensions.length) {
             setLoaded(true)
-          })
-          .catch(() => {
-            if (!cancelled) setLoaded(true)
-          })
+            return
+          }
+          fetch(base + extensions[i], { method: 'HEAD' })
+            .then((res) => {
+              if (cancelled) return
+              if (res.ok) {
+                setFileSrc(base + extensions[i])
+                setSource('file')
+                setLoaded(true)
+              } else {
+                tryNext(i + 1)
+              }
+            })
+            .catch(() => tryNext(i + 1))
+        }
+        tryNext(0)
       }
     })
 
@@ -98,7 +111,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
   if (!loaded) return null
 
   const hasImage = source === 'db' || source === 'file'
-  const imgSrc = source === 'db' ? objectUrl : src
+  const imgSrc = source === 'db' ? objectUrl : fileSrc
 
   return (
     <div
