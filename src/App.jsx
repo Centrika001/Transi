@@ -1,5 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
-import data from './presentationData.js'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import buildData from './presentationData.js'
+import { useNames } from './components/SettingsPanel.jsx'
+import SettingsPanel from './components/SettingsPanel.jsx'
 import SectionNav from './components/SectionNav.jsx'
 import SlideView from './components/SlideView.jsx'
 import CompetitorLogosSection from './components/CompetitorLogosSection.jsx'
@@ -18,7 +20,10 @@ export default function App() {
   const [sectionIndex, setSectionIndex] = useState(0)
   const [slideIndex, setSlideIndex] = useState(0)
   const [moderatorMode, setModeratorMode] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [names, updateNames] = useNames()
 
+  const data = useMemo(() => buildData(names), [names])
   const currentSection = SECTIONS[sectionIndex]
 
   const getMaxSlide = useCallback(() => {
@@ -28,14 +33,13 @@ export default function App() {
       case 'ourApp':
         return data.ourApp.slides.length - 1
       case 'competitorLogos':
-        // Individual logos + 1 comparison slide
         return data.competitorLogos.competitors.length
       case 'appComparison':
         return data.appComparison.screens.length - 1
       default:
         return 0
     }
-  }, [currentSection])
+  }, [currentSection, data])
 
   const goNext = useCallback(() => {
     if (slideIndex < getMaxSlide()) {
@@ -52,7 +56,6 @@ export default function App() {
     } else if (sectionIndex > 0) {
       const prevSection = SECTIONS[sectionIndex - 1]
       setSectionIndex(sectionIndex - 1)
-      // Go to last slide of previous section
       let lastSlide = 0
       switch (prevSection) {
         case 'ourBrand':
@@ -70,7 +73,7 @@ export default function App() {
       }
       setSlideIndex(lastSlide)
     }
-  }, [slideIndex, sectionIndex])
+  }, [slideIndex, sectionIndex, data])
 
   const goToSection = useCallback((index) => {
     setSectionIndex(index)
@@ -80,9 +83,13 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e) => {
+      if (showSettings) return
       if (e.key === 'm' || e.key === 'M') {
         e.preventDefault()
         setModeratorMode((v) => !v)
+      } else if (e.key === 's' || e.key === 'S') {
+        e.preventDefault()
+        setShowSettings(true)
       } else if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
         e.preventDefault()
         goNext()
@@ -93,7 +100,7 @@ export default function App() {
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [goNext, goPrev])
+  }, [goNext, goPrev, showSettings])
 
   // Touch/swipe support
   useEffect(() => {
@@ -179,6 +186,12 @@ export default function App() {
           >
             ← Previous
           </button>
+          <button
+            className="nav-btn settings-toggle"
+            onClick={() => setShowSettings(true)}
+          >
+            Settings
+          </button>
           <span className="slide-counter">
             {SECTION_LABELS[currentSection]} · {slideIndex + 1} / {getMaxSlide() + 1}
           </span>
@@ -190,6 +203,14 @@ export default function App() {
             Next →
           </button>
         </div>
+      )}
+
+      {showSettings && (
+        <SettingsPanel
+          names={names}
+          onUpdate={updateNames}
+          onClose={() => setShowSettings(false)}
+        />
       )}
     </div>
   )

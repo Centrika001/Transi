@@ -278,3 +278,93 @@
 .comparison-card.highlight img {
   box-shadow: 0 4px 20px rgba(79, 195, 247, 0.2);
 }
+
+/* ─── Settings Panel ─────────────────────────────── */
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.settings-panel {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 32px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-panel h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-panel label span {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-panel input {
+  padding: 10px 14px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.settings-panel input:focus {
+  border-color: #555;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.settings-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.settings-btn.cancel {
+  background: #2a2a2a;
+  color: #aaa;
+}
+
+.settings-btn.save {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+}
+
+.settings-toggle {
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  color: #666 !important;
+  border-color: #2a2a2a !important;
+}
