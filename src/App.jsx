@@ -239,6 +239,15 @@ export default function App() {
         </div>
       )}
 
+      {/* Floating toggle — always visible, works on touch */}
+      <button
+        className="fab-toggle"
+        onClick={() => setModeratorMode((v) => !v)}
+        aria-label="Toggle moderator controls"
+      >
+        {moderatorMode ? '✕' : '⋯'}
+      </button>
+
       {showSettings && (
         <SettingsPanel
           names={names}
