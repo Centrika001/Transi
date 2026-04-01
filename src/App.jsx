@@ -21,7 +21,7 @@ export default function App() {
   const [slideIndex, setSlideIndex] = useState(0)
   const [moderatorMode, setModeratorMode] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [names, updateNames] = useNames()
+  const [names, updateNames, configReady] = useNames()
   const [disabledSlides, updateDisabledSlides] = useDisabledSlides()
 
   const data = useMemo(() => buildData(names, disabledSlides), [names, disabledSlides])

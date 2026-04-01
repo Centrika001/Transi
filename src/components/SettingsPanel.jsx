@@ -1,6 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { clearAllImages } from '../imageStore.js'
 import { ALL_SLIDES } from '../presentationData.js'
+
+const STORAGE_KEY = 'transi-names'
+const SLIDES_KEY = 'transi-disabled-slides'
+const CONFIG_URL = `${import.meta.env.BASE_URL}config.json`
+
+// Load remote config (deployed with the site, works on all devices)
+let remoteConfig = null
+const remoteConfigPromise = fetch(CONFIG_URL)
+  .then((r) => r.json())
+  .then((data) => { remoteConfig = data })
+  .catch(() => {})
 
 const DEFAULTS = {
   ourName: 'Our App',
@@ -9,28 +20,27 @@ const DEFAULTS = {
   competitor3: 'Competitor C',
 }
 
-const STORAGE_KEY = 'transi-names'
-const SLIDES_KEY = 'transi-disabled-slides'
-
-function load() {
+function loadNames() {
+  // Local override takes priority, then remote config, then defaults
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    return { ...DEFAULTS, ...saved }
-  } catch {
-    return { ...DEFAULTS }
-  }
-}
-
-function save(names) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(names))
+    const local = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    if (local) return { ...DEFAULTS, ...local }
+  } catch {}
+  if (remoteConfig?.names) return { ...DEFAULTS, ...remoteConfig.names }
+  return { ...DEFAULTS }
 }
 
 function loadDisabledSlides() {
   try {
-    return JSON.parse(localStorage.getItem(SLIDES_KEY)) || []
-  } catch {
-    return []
-  }
+    const local = JSON.parse(localStorage.getItem(SLIDES_KEY))
+    if (local) return local
+  } catch {}
+  if (remoteConfig?.disabledSlides) return remoteConfig.disabledSlides
+  return []
+}
+
+function saveNames(names) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(names))
 }
 
 function saveDisabledSlides(list) {
@@ -38,19 +48,33 @@ function saveDisabledSlides(list) {
 }
 
 export function useNames() {
-  const [names, setNames] = useState(load)
+  const [names, setNames] = useState(DEFAULTS)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    remoteConfigPromise.then(() => {
+      setNames(loadNames())
+      setReady(true)
+    })
+  }, [])
 
   const updateNames = (newNames) => {
     const merged = { ...names, ...newNames }
     setNames(merged)
-    save(merged)
+    saveNames(merged)
   }
 
-  return [names, updateNames]
+  return [names, updateNames, ready]
 }
 
 export function useDisabledSlides() {
-  const [disabled, setDisabled] = useState(loadDisabledSlides)
+  const [disabled, setDisabled] = useState([])
+
+  useEffect(() => {
+    remoteConfigPromise.then(() => {
+      setDisabled(loadDisabledSlides())
+    })
+  }, [])
 
   const updateDisabled = (list) => {
     setDisabled(list)
@@ -85,6 +109,12 @@ export default function SettingsPanel({ names, onUpdateNames, disabledSlides, on
     onUpdateNames(draft)
     onUpdateSlides(draftDisabled)
     onClose()
+  }
+
+  const handleResetToGlobal = () => {
+    localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(SLIDES_KEY)
+    window.location.reload()
   }
 
   return (
@@ -145,13 +175,16 @@ export default function SettingsPanel({ names, onUpdateNames, disabledSlides, on
         ))}
 
         <div className="settings-actions">
+          <button className="settings-btn cancel" onClick={handleResetToGlobal}>
+            Reset to global
+          </button>
           <button
             className="settings-btn cancel"
             onClick={() => {
               clearAllImages().then(() => window.location.reload())
             }}
           >
-            Clear all images
+            Clear images
           </button>
           <button className="settings-btn cancel" onClick={onClose}>Cancel</button>
           <button className="settings-btn save" onClick={handleSave}>Save</button>
