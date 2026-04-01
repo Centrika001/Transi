@@ -133,18 +133,78 @@
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
+/* ─── Drop Zones ─────────────────────────────────── */
+
+.drop-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-zone.drag-over {
+  outline: 2px dashed #4fc3f7;
+  outline-offset: -2px;
+  border-radius: 12px;
+}
+
+.drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(79, 195, 247, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4fc3f7;
+  font-size: 16px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.remove-img-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.drop-zone:hover .remove-img-btn {
+  opacity: 1;
+}
+
 .image-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  width: 400px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
   border: 2px dashed #333;
   border-radius: 12px;
   color: #555;
   font-size: 14px;
+  cursor: default;
+}
+
+.image-placeholder .drop-icon {
+  font-size: 36px;
+  color: #444;
+  line-height: 1;
 }
 
 .image-placeholder .path {
@@ -205,10 +265,19 @@
   border: 1px solid #2a2a2a;
 }
 
+.logo-card .drop-zone {
+  width: 180px;
+  height: 180px;
+}
+
 .logo-card img {
   width: 180px;
   height: 180px;
   object-fit: contain;
+}
+
+.logo-card .image-placeholder {
+  min-height: 0;
 }
 
 .logo-card .name {
@@ -253,6 +322,14 @@
   flex: 1;
   min-width: 0;
   max-height: 100%;
+}
+
+.comparison-card .drop-zone {
+  aspect-ratio: 9 / 16;
+}
+
+.comparison-card .image-placeholder {
+  min-height: 0;
 }
 
 .comparison-card img {
