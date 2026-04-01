@@ -523,12 +523,19 @@
   border-color: #2a2a2a !important;
 }
 
-/* ─── Floating Action Button ─────────────────────── */
+/* ─── Floating Action Buttons ────────────────────── */
 
-.fab-toggle {
+.fab-group {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+}
+
+.fab-toggle {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -538,7 +545,6 @@
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  z-index: 50;
   transition: background 0.2s, color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
