@@ -5,5 +5,12 @@
     "competitor2": "Competitor B",
     "competitor3": "Competitor C"
   },
-  "disabledSlides": []
+  "disabledSlides": [
+    "app:money-transfer",
+    "app:payment",
+    "app:confirmation",
+    "compare:money-transfer",
+    "compare:payment",
+    "compare:confirmation"
+  ]
 }
