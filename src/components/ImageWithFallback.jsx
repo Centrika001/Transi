@@ -28,7 +28,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
       } else {
         // Try static file with multiple extensions
         const base = src.replace(/\.[^.]+$/, '')
-        const extensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp']
+        const extensions = ['.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.svg', '.webp']
         const tryNext = (i) => {
           if (cancelled) return
           if (i >= extensions.length) {
