@@ -1,0 +1,263 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #0f0f0f;
+}
+
+/* ─── Section Navigation ─────────────────────────── */
+
+.section-nav {
+  display: flex;
+  gap: 4px;
+  padding: 16px 24px 0;
+  border-bottom: 1px solid #222;
+  background: #0f0f0f;
+  flex-shrink: 0;
+}
+
+.section-tab {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.section-tab:hover {
+  color: #aaa;
+}
+
+.section-tab.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* ─── Slide Container ────────────────────────────── */
+
+.slide-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  min-height: 0;
+}
+
+/* ─── Bottom Controls ────────────────────────────── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 24px;
+  border-top: 1px solid #222;
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  padding: 10px 24px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.slide-counter {
+  font-size: 13px;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ─── Slide View (single image) ──────────────────── */
+
+.slide-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.slide-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 0.02em;
+}
+
+.slide-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.slide-image {
+  max-width: 80vw;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.slide-image.mockup {
+  max-height: 70vh;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 400px;
+  height: 300px;
+  border: 2px dashed #333;
+  border-radius: 12px;
+  color: #555;
+  font-size: 14px;
+}
+
+.image-placeholder .path {
+  font-family: monospace;
+  font-size: 12px;
+  color: #444;
+  background: #1a1a1a;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* ─── Competitor Logos Section ────────────────────── */
+
+.competitor-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.competitor-logos .slide-label {
+  font-size: 18px;
+}
+
+.single-logo {
+  max-width: 60vw;
+  max-height: 50vh;
+  object-fit: contain;
+}
+
+.logo-comparison {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+}
+
+.logo-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.logo-card .name {
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+}
+
+/* ─── App Comparison Section ─────────────────────── */
+
+.app-comparison {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.app-comparison .slide-label {
+  font-size: 18px;
+}
+
+.comparison-grid {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+  max-width: 95vw;
+  overflow-x: auto;
+}
+
+.comparison-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.comparison-card img {
+  height: 55vh;
+  width: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.comparison-card .name {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+
+.comparison-card.highlight .name {
+  color: #4fc3f7;
+  font-weight: 600;
+}
+
+.comparison-card.highlight img {
+  box-shadow: 0 4px 20px rgba(79, 195, 247, 0.2);
+}
