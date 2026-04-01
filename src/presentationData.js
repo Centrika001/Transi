@@ -43,19 +43,20 @@ const APP_SCREENS = [
 export default function buildData(names, disabledSlides = []) {
   const { ourName, competitor1, competitor2, competitor3 } = names
   const enabled = (id) => !disabledSlides.includes(id)
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
   const brandSlides = []
-  if (enabled('brand:logo'))   brandSlides.push({ label: 'Logo',   image: '/assets/our-brand/logo.png' })
-  if (enabled('brand:avatar')) brandSlides.push({ label: 'Avatar', image: '/assets/our-brand/avatar.png' })
+  if (enabled('brand:logo'))   brandSlides.push({ label: 'Logo',   image: `${base}/assets/our-brand/logo.png` })
+  if (enabled('brand:avatar')) brandSlides.push({ label: 'Avatar', image: `${base}/assets/our-brand/avatar.png` })
 
   const appSlides = APP_SCREENS
     .filter((s) => enabled(s.id))
-    .map((s) => ({ label: s.label, image: `/assets/our-app/${s.file}.png` }))
+    .map((s) => ({ label: s.label, image: `${base}/assets/our-app/${s.file}.png` }))
 
   const competitors = []
-  if (enabled('logos:a')) competitors.push({ name: competitor1, logo: '/assets/competitors/logos/competitor-a.png' })
-  if (enabled('logos:b')) competitors.push({ name: competitor2, logo: '/assets/competitors/logos/competitor-b.png' })
-  if (enabled('logos:c')) competitors.push({ name: competitor3, logo: '/assets/competitors/logos/competitor-c.png' })
+  if (enabled('logos:a')) competitors.push({ name: competitor1, logo: `${base}/assets/competitors/logos/competitor-a.png` })
+  if (enabled('logos:b')) competitors.push({ name: competitor2, logo: `${base}/assets/competitors/logos/competitor-b.png` })
+  if (enabled('logos:c')) competitors.push({ name: competitor3, logo: `${base}/assets/competitors/logos/competitor-c.png` })
   const showLogosCompare = enabled('logos:compare')
 
   const compareScreens = APP_SCREENS
@@ -63,10 +64,10 @@ export default function buildData(names, disabledSlides = []) {
     .map((s) => ({
       label: s.label,
       apps: [
-        { name: ourName,     image: `/assets/our-app/${s.file}.png` },
-        { name: competitor1, image: `/assets/competitors/app-1/${s.file}.png` },
-        { name: competitor2, image: `/assets/competitors/app-2/${s.file}.png` },
-        { name: competitor3, image: `/assets/competitors/app-3/${s.file}.png` },
+        { name: ourName,     image: `${base}/assets/our-app/${s.file}.png` },
+        { name: competitor1, image: `${base}/assets/competitors/app-1/${s.file}.png` },
+        { name: competitor2, image: `${base}/assets/competitors/app-2/${s.file}.png` },
+        { name: competitor3, image: `${base}/assets/competitors/app-3/${s.file}.png` },
       ],
     }))
 
