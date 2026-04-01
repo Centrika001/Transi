@@ -401,6 +401,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .settings-panel h2 {
@@ -465,6 +467,21 @@
   text-transform: none;
   letter-spacing: 0;
 }
+
+.screen-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 
 .settings-actions {
   display: flex;

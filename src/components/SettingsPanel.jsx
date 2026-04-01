@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { clearAllImages } from '../imageStore.js'
-import { ALL_SCREENS } from '../presentationData.js'
+import { ALL_SLIDES } from '../presentationData.js'
 
 const DEFAULTS = {
   ourName: 'Our App',
@@ -10,7 +10,7 @@ const DEFAULTS = {
 }
 
 const STORAGE_KEY = 'transi-names'
-const SCREENS_KEY = 'transi-disabled-screens'
+const SLIDES_KEY = 'transi-disabled-slides'
 
 function load() {
   try {
@@ -25,16 +25,16 @@ function save(names) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(names))
 }
 
-function loadDisabledScreens() {
+function loadDisabledSlides() {
   try {
-    return JSON.parse(localStorage.getItem(SCREENS_KEY)) || []
+    return JSON.parse(localStorage.getItem(SLIDES_KEY)) || []
   } catch {
     return []
   }
 }
 
-function saveDisabledScreens(list) {
-  localStorage.setItem(SCREENS_KEY, JSON.stringify(list))
+function saveDisabledSlides(list) {
+  localStorage.setItem(SLIDES_KEY, JSON.stringify(list))
 }
 
 export function useNames() {
@@ -49,30 +49,41 @@ export function useNames() {
   return [names, updateNames]
 }
 
-export function useDisabledScreens() {
-  const [disabled, setDisabled] = useState(loadDisabledScreens)
+export function useDisabledSlides() {
+  const [disabled, setDisabled] = useState(loadDisabledSlides)
 
   const updateDisabled = (list) => {
     setDisabled(list)
-    saveDisabledScreens(list)
+    saveDisabledSlides(list)
   }
 
   return [disabled, updateDisabled]
 }
 
-export default function SettingsPanel({ names, onUpdateNames, disabledScreens, onUpdateScreens, onClose }) {
-  const [draft, setDraft] = useState({ ...names })
-  const [draftDisabled, setDraftDisabled] = useState([...disabledScreens])
+// Group slides by section
+const sections = []
+const sectionMap = {}
+ALL_SLIDES.forEach((slide) => {
+  if (!sectionMap[slide.section]) {
+    sectionMap[slide.section] = []
+    sections.push(slide.section)
+  }
+  sectionMap[slide.section].push(slide)
+})
 
-  const toggleScreen = (file) => {
+export default function SettingsPanel({ names, onUpdateNames, disabledSlides, onUpdateSlides, onClose }) {
+  const [draft, setDraft] = useState({ ...names })
+  const [draftDisabled, setDraftDisabled] = useState([...disabledSlides])
+
+  const toggleSlide = (id) => {
     setDraftDisabled((prev) =>
-      prev.includes(file) ? prev.filter((f) => f !== file) : [...prev, file]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     )
   }
 
   const handleSave = () => {
     onUpdateNames(draft)
-    onUpdateScreens(draftDisabled)
+    onUpdateSlides(draftDisabled)
     onClose()
   }
 
@@ -113,20 +124,25 @@ export default function SettingsPanel({ names, onUpdateNames, disabledScreens, o
           />
         </label>
 
-        <h2>Screens</h2>
+        <h2>Slides</h2>
 
-        <div className="screen-toggles">
-          {ALL_SCREENS.map((s) => (
-            <label key={s.file} className="screen-toggle">
-              <input
-                type="checkbox"
-                checked={!draftDisabled.includes(s.file)}
-                onChange={() => toggleScreen(s.file)}
-              />
-              <span>{s.label}</span>
-            </label>
-          ))}
-        </div>
+        {sections.map((section) => (
+          <div key={section} className="screen-section">
+            <div className="screen-section-title">{section}</div>
+            <div className="screen-toggles">
+              {sectionMap[section].map((slide) => (
+                <label key={slide.id} className="screen-toggle">
+                  <input
+                    type="checkbox"
+                    checked={!draftDisabled.includes(slide.id)}
+                    onChange={() => toggleSlide(slide.id)}
+                  />
+                  <span>{slide.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
 
         <div className="settings-actions">
           <button

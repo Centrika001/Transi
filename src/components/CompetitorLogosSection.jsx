@@ -1,7 +1,7 @@
 import ImageWithFallback from './ImageWithFallback.jsx'
 
-export default function CompetitorLogosSection({ competitors, slideIndex }) {
-  const isComparison = slideIndex >= competitors.length
+export default function CompetitorLogosSection({ competitors, showCompare, slideIndex }) {
+  const isComparison = showCompare && slideIndex >= competitors.length
 
   if (isComparison) {
     return (
