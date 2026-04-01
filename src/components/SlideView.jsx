@@ -4,7 +4,7 @@ export default function SlideView({ slide, index, total, isMockup, section }) {
   return (
     <div className="slide-view">
       <div className="slide-label">{slide.label}</div>
-      <div className={`slide-image-wrapper ${!isMockup ? 'brand' : ''}`}>
+      <div className={`slide-image-wrapper ${isMockup ? 'mockup-wrapper' : 'brand'}`}>
         <ImageWithFallback
           src={slide.image}
           alt={slide.label}
