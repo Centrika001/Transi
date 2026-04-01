@@ -44,11 +44,17 @@ const data = {
         image: '/assets/our-app/home.png',
       },
       {
-        label: 'Details Screen',
-        image: '/assets/our-app/details.png',
+        label: 'Money Transfer Screen',
+        image: '/assets/our-app/money-transfer.png',
       },
-      // Add more screenshots:
-      // { label: 'Settings', image: '/assets/our-app/settings.png' },
+      {
+        label: 'Payment Screen',
+        image: '/assets/our-app/payment.png',
+      },
+      {
+        label: 'Confirmation Page',
+        image: '/assets/our-app/confirmation.png',
+      },
     ],
   },
 
@@ -95,12 +101,30 @@ const data = {
         ],
       },
       {
-        label: 'Details Screen',
+        label: 'Money Transfer Screen',
         apps: [
-          { name: 'Our App', image: '/assets/our-app/details.png' },
-          { name: 'Competitor A', image: '/assets/competitors/app-1/details.png' },
-          { name: 'Competitor B', image: '/assets/competitors/app-2/details.png' },
-          { name: 'Competitor C', image: '/assets/competitors/app-3/details.png' },
+          { name: 'Our App', image: '/assets/our-app/money-transfer.png' },
+          { name: 'Competitor A', image: '/assets/competitors/app-1/money-transfer.png' },
+          { name: 'Competitor B', image: '/assets/competitors/app-2/money-transfer.png' },
+          { name: 'Competitor C', image: '/assets/competitors/app-3/money-transfer.png' },
+        ],
+      },
+      {
+        label: 'Payment Screen',
+        apps: [
+          { name: 'Our App', image: '/assets/our-app/payment.png' },
+          { name: 'Competitor A', image: '/assets/competitors/app-1/payment.png' },
+          { name: 'Competitor B', image: '/assets/competitors/app-2/payment.png' },
+          { name: 'Competitor C', image: '/assets/competitors/app-3/payment.png' },
+        ],
+      },
+      {
+        label: 'Confirmation Page',
+        apps: [
+          { name: 'Our App', image: '/assets/our-app/confirmation.png' },
+          { name: 'Competitor A', image: '/assets/competitors/app-1/confirmation.png' },
+          { name: 'Competitor B', image: '/assets/competitors/app-2/confirmation.png' },
+          { name: 'Competitor C', image: '/assets/competitors/app-3/confirmation.png' },
         ],
       },
     ],
