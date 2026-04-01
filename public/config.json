@@ -1,9 +1,9 @@
 {
   "names": {
     "ourName": "Our App",
-    "competitor1": "Competitor A",
-    "competitor2": "Competitor B",
-    "competitor3": "Competitor C"
+    "competitor1": "Western Union",
+    "competitor2": "Remitly",
+    "competitor3": "La Nacional"
   },
   "disabledSlides": [
     "app:money-transfer",
