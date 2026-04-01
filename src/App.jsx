@@ -17,6 +17,7 @@ const SECTION_LABELS = {
 export default function App() {
   const [sectionIndex, setSectionIndex] = useState(0)
   const [slideIndex, setSlideIndex] = useState(0)
+  const [moderatorMode, setModeratorMode] = useState(false)
 
   const currentSection = SECTIONS[sectionIndex]
 
@@ -79,7 +80,10 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault()
+        setModeratorMode((v) => !v)
+      } else if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
         e.preventDefault()
         goNext()
       } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
@@ -153,36 +157,40 @@ export default function App() {
 
   return (
     <div className="app">
-      <SectionNav
-        sections={SECTIONS}
-        labels={SECTION_LABELS}
-        currentIndex={sectionIndex}
-        onSelect={goToSection}
-      />
+      {moderatorMode && (
+        <SectionNav
+          sections={SECTIONS}
+          labels={SECTION_LABELS}
+          currentIndex={sectionIndex}
+          onSelect={goToSection}
+        />
+      )}
 
       <div className="slide-container">
         {renderSection()}
       </div>
 
-      <div className="controls">
-        <button
-          className="nav-btn"
-          onClick={goPrev}
-          disabled={sectionIndex === 0 && slideIndex === 0}
-        >
-          ← Previous
-        </button>
-        <span className="slide-counter">
-          {slideIndex + 1} / {getMaxSlide() + 1}
-        </span>
-        <button
-          className="nav-btn"
-          onClick={goNext}
-          disabled={sectionIndex === SECTIONS.length - 1 && slideIndex === getMaxSlide()}
-        >
-          Next →
-        </button>
-      </div>
+      {moderatorMode && (
+        <div className="controls">
+          <button
+            className="nav-btn"
+            onClick={goPrev}
+            disabled={sectionIndex === 0 && slideIndex === 0}
+          >
+            ← Previous
+          </button>
+          <span className="slide-counter">
+            {SECTION_LABELS[currentSection]} · {slideIndex + 1} / {getMaxSlide() + 1}
+          </span>
+          <button
+            className="nav-btn"
+            onClick={goNext}
+            disabled={sectionIndex === SECTIONS.length - 1 && slideIndex === getMaxSlide()}
+          >
+            Next →
+          </button>
+        </div>
+      )}
     </div>
   )
 }
