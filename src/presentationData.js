@@ -19,15 +19,9 @@ const data = {
         image: '/assets/our-brand/logo.png',
       },
       {
-        label: 'Logo Variation',
-        image: '/assets/our-brand/logo-variation.png',
+        label: 'Avatar',
+        image: '/assets/our-brand/avatar.png',
       },
-      {
-        label: 'Color Palette',
-        image: '/assets/our-brand/color-palette.png',
-      },
-      // Add more brand assets here:
-      // { label: 'Typography', image: '/assets/our-brand/typography.png' },
     ],
   },
 
