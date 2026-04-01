@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { clearAllImages } from '../imageStore.js'
 
 const DEFAULTS = {
   ourName: 'Our App',
@@ -80,6 +81,14 @@ export default function SettingsPanel({ names, onUpdate, onClose }) {
         </label>
 
         <div className="settings-actions">
+          <button
+            className="settings-btn cancel"
+            onClick={() => {
+              clearAllImages().then(() => window.location.reload())
+            }}
+          >
+            Clear all images
+          </button>
           <button className="settings-btn cancel" onClick={onClose}>Cancel</button>
           <button className="settings-btn save" onClick={handleSave}>Save</button>
         </div>
