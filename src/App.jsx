@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import buildData from './presentationData.js'
-import { useNames } from './components/SettingsPanel.jsx'
+import { useNames, useDisabledScreens } from './components/SettingsPanel.jsx'
 import SettingsPanel from './components/SettingsPanel.jsx'
 import SectionNav from './components/SectionNav.jsx'
 import SlideView from './components/SlideView.jsx'
@@ -22,8 +22,9 @@ export default function App() {
   const [moderatorMode, setModeratorMode] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [names, updateNames] = useNames()
+  const [disabledScreens, updateDisabledScreens] = useDisabledScreens()
 
-  const data = useMemo(() => buildData(names), [names])
+  const data = useMemo(() => buildData(names, disabledScreens), [names, disabledScreens])
   const currentSection = SECTIONS[sectionIndex]
 
   const getMaxSlide = useCallback(() => {
@@ -210,7 +211,9 @@ export default function App() {
       {showSettings && (
         <SettingsPanel
           names={names}
-          onUpdate={updateNames}
+          onUpdateNames={updateNames}
+          disabledScreens={disabledScreens}
+          onUpdateScreens={updateDisabledScreens}
           onClose={() => setShowSettings(false)}
         />
       )}

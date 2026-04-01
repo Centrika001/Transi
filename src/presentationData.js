@@ -8,7 +8,7 @@
  */
 
 // Screen names used in both "Our App" and "App Comparison" sections
-const SCREENS = [
+export const ALL_SCREENS = [
   { label: 'Login Screen',          file: 'login' },
   { label: 'Home Screen',           file: 'home' },
   { label: 'Money Transfer Screen', file: 'money-transfer' },
@@ -16,8 +16,9 @@ const SCREENS = [
   { label: 'Confirmation Page',     file: 'confirmation' },
 ]
 
-export default function buildData(names) {
+export default function buildData(names, disabledScreens = []) {
   const { ourName, competitor1, competitor2, competitor3 } = names
+  const screens = ALL_SCREENS.filter((s) => !disabledScreens.includes(s.file))
 
   return {
     ourBrand: {
@@ -30,7 +31,7 @@ export default function buildData(names) {
 
     ourApp: {
       title: ourName,
-      slides: SCREENS.map((s) => ({
+      slides: screens.map((s) => ({
         label: s.label,
         image: `/assets/our-app/${s.file}.png`,
       })),
@@ -47,7 +48,7 @@ export default function buildData(names) {
 
     appComparison: {
       title: 'App Comparison',
-      screens: SCREENS.map((s) => ({
+      screens: screens.map((s) => ({
         label: s.label,
         apps: [
           { name: ourName,     image: `/assets/our-app/${s.file}.png` },

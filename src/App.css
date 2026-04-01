@@ -433,8 +433,37 @@
   outline: none;
 }
 
-.settings-panel input:focus {
+.settings-panel input[type="text"]:focus,
+.settings-panel input:not([type]):focus {
   border-color: #555;
+}
+
+.screen-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.screen-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #4fc3f7;
+  cursor: pointer;
+}
+
+.screen-toggle span {
+  font-size: 14px;
+  color: #ccc;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .settings-actions {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { clearAllImages } from '../imageStore.js'
+import { ALL_SCREENS } from '../presentationData.js'
 
 const DEFAULTS = {
   ourName: 'Our App',
@@ -9,6 +10,7 @@ const DEFAULTS = {
 }
 
 const STORAGE_KEY = 'transi-names'
+const SCREENS_KEY = 'transi-disabled-screens'
 
 function load() {
   try {
@@ -23,6 +25,18 @@ function save(names) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(names))
 }
 
+function loadDisabledScreens() {
+  try {
+    return JSON.parse(localStorage.getItem(SCREENS_KEY)) || []
+  } catch {
+    return []
+  }
+}
+
+function saveDisabledScreens(list) {
+  localStorage.setItem(SCREENS_KEY, JSON.stringify(list))
+}
+
 export function useNames() {
   const [names, setNames] = useState(load)
 
@@ -35,18 +49,37 @@ export function useNames() {
   return [names, updateNames]
 }
 
-export default function SettingsPanel({ names, onUpdate, onClose }) {
+export function useDisabledScreens() {
+  const [disabled, setDisabled] = useState(loadDisabledScreens)
+
+  const updateDisabled = (list) => {
+    setDisabled(list)
+    saveDisabledScreens(list)
+  }
+
+  return [disabled, updateDisabled]
+}
+
+export default function SettingsPanel({ names, onUpdateNames, disabledScreens, onUpdateScreens, onClose }) {
   const [draft, setDraft] = useState({ ...names })
+  const [draftDisabled, setDraftDisabled] = useState([...disabledScreens])
+
+  const toggleScreen = (file) => {
+    setDraftDisabled((prev) =>
+      prev.includes(file) ? prev.filter((f) => f !== file) : [...prev, file]
+    )
+  }
 
   const handleSave = () => {
-    onUpdate(draft)
+    onUpdateNames(draft)
+    onUpdateScreens(draftDisabled)
     onClose()
   }
 
   return (
     <div className="settings-overlay" onClick={onClose}>
       <div className="settings-panel" onClick={(e) => e.stopPropagation()}>
-        <h2>Edit Names</h2>
+        <h2>Names</h2>
 
         <label>
           <span>Our App</span>
@@ -79,6 +112,21 @@ export default function SettingsPanel({ names, onUpdate, onClose }) {
             onChange={(e) => setDraft({ ...draft, competitor3: e.target.value })}
           />
         </label>
+
+        <h2>Screens</h2>
+
+        <div className="screen-toggles">
+          {ALL_SCREENS.map((s) => (
+            <label key={s.file} className="screen-toggle">
+              <input
+                type="checkbox"
+                checked={!draftDisabled.includes(s.file)}
+                onChange={() => toggleScreen(s.file)}
+              />
+              <span>{s.label}</span>
+            </label>
+          ))}
+        </div>
 
         <div className="settings-actions">
           <button
