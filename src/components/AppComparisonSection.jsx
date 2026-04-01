@@ -13,6 +13,7 @@ export default function AppComparisonSection({ screen, index, total }) {
             <ImageWithFallback
               src={app.image}
               alt={`${app.name} — ${screen.label}`}
+              storageKey={`app-comparison:${screen.label}:${app.name}`}
             />
             <span className="name">{app.name}</span>
           </div>

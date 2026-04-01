@@ -131,6 +131,7 @@ export default function App() {
             slide={data.ourBrand.slides[slideIndex]}
             index={slideIndex}
             total={data.ourBrand.slides.length}
+            section="our-brand"
           />
         )
       case 'ourApp':
@@ -140,6 +141,7 @@ export default function App() {
             index={slideIndex}
             total={data.ourApp.slides.length}
             isMockup
+            section="our-app"
           />
         )
       case 'competitorLogos':

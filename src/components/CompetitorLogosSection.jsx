@@ -10,7 +10,11 @@ export default function CompetitorLogosSection({ competitors, slideIndex }) {
         <div className="logo-comparison">
           {competitors.map((c) => (
             <div className="logo-card" key={c.name}>
-              <ImageWithFallback src={c.logo} alt={c.name} />
+              <ImageWithFallback
+                src={c.logo}
+                alt={c.name}
+                storageKey={`competitor-logos:${c.logo}`}
+              />
               <span className="name">{c.name}</span>
             </div>
           ))}
@@ -28,6 +32,7 @@ export default function CompetitorLogosSection({ competitors, slideIndex }) {
           src={competitor.logo}
           alt={competitor.name}
           className="single-logo"
+          storageKey={`competitor-logos:${competitor.logo}`}
         />
       </div>
     </div>
