@@ -23,11 +23,13 @@ export default function CompetitorLogosSection({ competitors, slideIndex }) {
   return (
     <div className="competitor-logos">
       <div className="slide-label">{competitor.name}</div>
-      <ImageWithFallback
-        src={competitor.logo}
-        alt={competitor.name}
-        className="single-logo"
-      />
+      <div className="single-logo-wrapper">
+        <ImageWithFallback
+          src={competitor.logo}
+          alt={competitor.name}
+          className="single-logo"
+        />
+      </div>
     </div>
   )
 }
