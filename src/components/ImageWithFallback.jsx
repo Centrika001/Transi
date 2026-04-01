@@ -3,15 +3,17 @@ import { saveImage, loadImage, deleteImage } from '../imageStore.js'
 
 export default function ImageWithFallback({ src, alt, className, storageKey }) {
   const [objectUrl, setObjectUrl] = useState(null)
+  const [source, setSource] = useState(null) // 'db' | 'file' | null
   const [loaded, setLoaded] = useState(false)
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef(null)
 
-  // Load from IndexedDB using storageKey only
+  // 1. Try IndexedDB (local override), then fall back to static file URL
   useEffect(() => {
     let cancelled = false
     let url = null
     setObjectUrl(null)
+    setSource(null)
     setLoaded(false)
 
     loadImage(storageKey).then((blob) => {
@@ -19,15 +21,29 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
       if (blob) {
         url = URL.createObjectURL(blob)
         setObjectUrl(url)
+        setSource('db')
+        setLoaded(true)
+      } else {
+        // Try static file via a HEAD request
+        fetch(src, { method: 'HEAD' })
+          .then((res) => {
+            if (cancelled) return
+            if (res.ok) {
+              setSource('file')
+            }
+            setLoaded(true)
+          })
+          .catch(() => {
+            if (!cancelled) setLoaded(true)
+          })
       }
-      setLoaded(true)
     })
 
     return () => {
       cancelled = true
       if (url) URL.revokeObjectURL(url)
     }
-  }, [storageKey])
+  }, [storageKey, src])
 
   const setImage = useCallback(
     (file) => {
@@ -36,6 +52,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
         if (objectUrl) URL.revokeObjectURL(objectUrl)
         const url = URL.createObjectURL(file)
         setObjectUrl(url)
+        setSource('db')
       })
     },
     [storageKey, objectUrl],
@@ -65,6 +82,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
     deleteImage(storageKey).then(() => {
       if (objectUrl) URL.revokeObjectURL(objectUrl)
       setObjectUrl(null)
+      setSource(null)
     })
   }
 
@@ -77,10 +95,10 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
     e.target.value = ''
   }
 
-  // Don't render anything until IndexedDB check completes
   if (!loaded) return null
 
-  const hasImage = !!objectUrl
+  const hasImage = source === 'db' || source === 'file'
+  const imgSrc = source === 'db' ? objectUrl : src
 
   return (
     <div
@@ -92,7 +110,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
       {hasImage ? (
         <>
           <img
-            src={objectUrl}
+            src={imgSrc}
             alt={alt}
             className={className}
             draggable={false}
@@ -101,9 +119,11 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
             <button className="img-action-btn" onClick={handleClick} title="Replace image">
               &#x270E;
             </button>
-            <button className="img-action-btn remove" onClick={handleRemove} title="Remove image">
-              &times;
-            </button>
+            {source === 'db' && (
+              <button className="img-action-btn remove" onClick={handleRemove} title="Remove image">
+                &times;
+              </button>
+            )}
           </div>
         </>
       ) : (
