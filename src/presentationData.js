@@ -46,8 +46,8 @@ export default function buildData(names, disabledSlides = []) {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
   const brandSlides = []
-  if (enabled('brand:logo'))   brandSlides.push({ label: 'Logo',   image: `${base}/assets/our-brand/logo.png` })
   if (enabled('brand:avatar')) brandSlides.push({ label: 'Avatar', image: `${base}/assets/our-brand/avatar.png` })
+  if (enabled('brand:logo'))   brandSlides.push({ label: 'Logo',   image: `${base}/assets/our-brand/logo.png` })
 
   const appSlides = APP_SCREENS
     .filter((s) => enabled(s.id))
