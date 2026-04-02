@@ -269,6 +269,9 @@
   flex: 1;
   width: 80vw;
   min-height: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
 }
 
 .single-logo {
@@ -291,7 +294,7 @@
   align-items: center;
   gap: 12px;
   padding: 24px;
-  background: #1a1a1a;
+  background: #ffffff;
   border-radius: 12px;
   border: 1px solid #2a2a2a;
 }
@@ -313,7 +316,7 @@
 
 .logo-card .name {
   font-size: 14px;
-  color: #888;
+  color: #333;
   font-weight: 500;
 }
 
