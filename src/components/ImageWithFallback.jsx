@@ -26,20 +26,21 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
         setSource('db')
         setLoaded(true)
       } else {
-        // Try static file with multiple extensions
+        // Try static file with multiple extensions and alternate names
         const base = src.replace(/\.[^.]+$/, '')
-        const extensions = ['.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.svg', '.webp']
+        const ext = ['.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.svg', '.webp']
+        const candidates = ext.flatMap((e) => [base + e, base + '1' + e])
         const tryNext = (i) => {
           if (cancelled) return
-          if (i >= extensions.length) {
+          if (i >= candidates.length) {
             setLoaded(true)
             return
           }
-          fetch(base + extensions[i], { method: 'HEAD' })
+          fetch(candidates[i], { method: 'HEAD' })
             .then((res) => {
               if (cancelled) return
               if (res.ok) {
-                setFileSrc(base + extensions[i])
+                setFileSrc(candidates[i])
                 setSource('file')
                 setLoaded(true)
               } else {
