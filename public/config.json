@@ -1,10 +1,10 @@
 {
   "names": {
     "ourName": "Our App",
-    "competitor1": "Western Union",
+    "competitor1": "Boss",
     "competitor2": "Remitly",
-    "competitor3": "La Nacional",
-    "competitor4": "Competitor D"
+    "competitor3": "Ria",
+    "competitor4": "Sendwave"
   },
   "disabledSlides": [
     "app:money-transfer",
