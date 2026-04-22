@@ -239,6 +239,16 @@ export default function App() {
         </div>
       )}
 
+      {/* Link to Transi Eco — bottom left, always visible */}
+      <a
+        className="fab-link"
+        href="https://centrika001.github.io/Transi_Eco/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        →
+      </a>
+
       {/* Floating buttons — always visible, works on touch */}
       <div className="fab-group">
         {moderatorMode && (

@@ -557,3 +557,27 @@
   background: rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.6);
 }
+
+.fab-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 22px;
+  line-height: 44px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 50;
+  transition: background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+}
