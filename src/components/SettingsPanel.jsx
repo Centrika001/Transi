@@ -18,6 +18,7 @@ const DEFAULTS = {
   competitor1: 'Competitor A',
   competitor2: 'Competitor B',
   competitor3: 'Competitor C',
+  competitor4: 'Competitor D',
 }
 
 function loadNames() {
@@ -151,6 +152,14 @@ export default function SettingsPanel({ names, onUpdateNames, disabledSlides, on
           <input
             value={draft.competitor3}
             onChange={(e) => setDraft({ ...draft, competitor3: e.target.value })}
+          />
+        </label>
+
+        <label>
+          <span>Competitor 4</span>
+          <input
+            value={draft.competitor4}
+            onChange={(e) => setDraft({ ...draft, competitor4: e.target.value })}
           />
         </label>
 

@@ -11,7 +11,7 @@
 export const ALL_SLIDES = [
   // Our Brand
   { id: 'brand:logo',         section: 'Our Brand',      label: 'Logo' },
-  { id: 'brand:avatar',       section: 'Our Brand',      label: 'Avatar' },
+  { id: 'brand:avatar',       section: 'Our Brand',      label: 'Icon' },
   // Our App
   { id: 'app:login',          section: 'Our App',        label: 'Login Screen' },
   { id: 'app:home',           section: 'Our App',        label: 'Home Screen' },
@@ -22,6 +22,7 @@ export const ALL_SLIDES = [
   { id: 'logos:a',             section: 'Competitor Logos', label: 'Competitor 1 Logo' },
   { id: 'logos:b',             section: 'Competitor Logos', label: 'Competitor 2 Logo' },
   { id: 'logos:c',             section: 'Competitor Logos', label: 'Competitor 3 Logo' },
+  { id: 'logos:d',             section: 'Competitor Logos', label: 'Competitor 4 Logo' },
   { id: 'logos:compare',       section: 'Competitor Logos', label: 'All Logos Side by Side' },
   // App Comparison
   { id: 'compare:login',          section: 'App Comparison', label: 'Login Screen' },
@@ -41,7 +42,7 @@ const APP_SCREENS = [
 ]
 
 export default function buildData(names, disabledSlides = []) {
-  const { ourName, competitor1, competitor2, competitor3 } = names
+  const { ourName, competitor1, competitor2, competitor3, competitor4 } = names
   const enabled = (id) => !disabledSlides.includes(id)
   const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
@@ -57,6 +58,7 @@ export default function buildData(names, disabledSlides = []) {
   if (enabled('logos:a')) competitors.push({ name: competitor1, logo: `${base}/assets/competitors/logos/competitor-a.png` })
   if (enabled('logos:b')) competitors.push({ name: competitor2, logo: `${base}/assets/competitors/logos/competitor-b.png` })
   if (enabled('logos:c')) competitors.push({ name: competitor3, logo: `${base}/assets/competitors/logos/competitor-c.png` })
+  if (enabled('logos:d')) competitors.push({ name: competitor4, logo: `${base}/assets/competitors/logos/competitor-d.png` })
   const showLogosCompare = enabled('logos:compare')
 
   const compareScreens = APP_SCREENS
@@ -68,6 +70,7 @@ export default function buildData(names, disabledSlides = []) {
         { name: competitor1, image: `${base}/assets/competitors/app-1/${s.file}.png` },
         { name: competitor2, image: `${base}/assets/competitors/app-2/${s.file}.png` },
         { name: competitor3, image: `${base}/assets/competitors/app-3/${s.file}.png` },
+        { name: competitor4, image: `${base}/assets/competitors/app-4/${s.file}.png` },
       ],
     }))
 

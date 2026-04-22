@@ -3,7 +3,8 @@
     "ourName": "Our App",
     "competitor1": "Western Union",
     "competitor2": "Remitly",
-    "competitor3": "La Nacional"
+    "competitor3": "La Nacional",
+    "competitor4": "Competitor D"
   },
   "disabledSlides": [
     "app:money-transfer",
