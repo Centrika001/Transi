@@ -283,10 +283,10 @@
 
 .logo-comparison {
   display: flex;
-  gap: 40px;
+  gap: 24px;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .logo-card {
@@ -301,13 +301,13 @@
 }
 
 .logo-card .drop-zone {
-  width: 260px;
-  height: 260px;
+  width: 200px;
+  height: 200px;
 }
 
 .logo-card img {
-  width: 260px;
-  height: 260px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
 }
 
