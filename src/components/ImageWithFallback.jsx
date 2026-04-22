@@ -29,7 +29,7 @@ export default function ImageWithFallback({ src, alt, className, storageKey }) {
         // Try static file with multiple extensions and alternate names
         const base = src.replace(/\.[^.]+$/, '')
         const ext = ['.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.svg', '.webp']
-        const candidates = ext.flatMap((e) => [base + e, base + '1' + e])
+        const candidates = ext.flatMap((e) => [base + '1' + e, base + e])
         const tryNext = (i) => {
           if (cancelled) return
           if (i >= candidates.length) {
