@@ -1,0 +1,17 @@
+{
+  "names": {
+    "ourName": "Our App",
+    "competitor1": "Boss",
+    "competitor2": "Remitly",
+    "competitor3": "Ria",
+    "competitor4": "Sendwave"
+  },
+  "disabledSlides": [
+    "app:money-transfer",
+    "app:payment",
+    "app:confirmation",
+    "compare:money-transfer",
+    "compare:payment",
+    "compare:confirmation"
+  ]
+}

@@ -1,0 +1,595 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #0f0f0f;
+}
+
+/* ─── Section Navigation ─────────────────────────── */
+
+.section-nav {
+  display: flex;
+  gap: 4px;
+  padding: 16px 24px 0;
+  border-bottom: 1px solid #222;
+  background: #0f0f0f;
+  flex-shrink: 0;
+}
+
+.section-tab {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.section-tab:hover {
+  color: #aaa;
+}
+
+.section-tab.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* ─── Slide Container ────────────────────────────── */
+
+.slide-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  min-height: 0;
+}
+
+/* ─── Bottom Controls ────────────────────────────── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 24px;
+  border-top: 1px solid #222;
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  padding: 10px 24px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.slide-counter {
+  font-size: 13px;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ─── Slide View (single image) ──────────────────── */
+
+.slide-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 0.02em;
+}
+
+.slide-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 80vw;
+  min-height: 0;
+}
+
+.slide-image-wrapper.brand {
+  width: 40vw;
+  max-height: 50vh;
+  flex: none;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.slide-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.slide-image-wrapper.mockup-wrapper {
+  flex: none;
+  width: auto;
+  height: 65vh;
+  aspect-ratio: 9 / 16;
+}
+
+.slide-image.mockup {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Drop Zones ─────────────────────────────────── */
+
+.drop-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-zone.drag-over {
+  outline: 2px dashed #4fc3f7;
+  outline-offset: -2px;
+  border-radius: 12px;
+}
+
+.drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(79, 195, 247, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4fc3f7;
+  font-size: 16px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.img-actions {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.drop-zone:hover .img-actions {
+  opacity: 1;
+}
+
+.img-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s, color 0.15s;
+}
+
+.img-action-btn:hover {
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+}
+
+.img-action-btn.remove:hover {
+  background: rgba(200, 50, 50, 0.85);
+  color: #fff;
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  border: 2px dashed #333;
+  border-radius: 12px;
+  color: #555;
+  font-size: 14px;
+  cursor: default;
+}
+
+.image-placeholder .drop-icon {
+  font-size: 36px;
+  color: #444;
+  line-height: 1;
+}
+
+.image-placeholder .path {
+  font-family: monospace;
+  font-size: 12px;
+  color: #444;
+  background: #1a1a1a;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* ─── Competitor Logos Section ────────────────────── */
+
+.competitor-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.competitor-logos .slide-label {
+  font-size: 18px;
+}
+
+.single-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 80vw;
+  min-height: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.single-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.logo-comparison {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+}
+
+.logo-card .drop-zone {
+  width: 200px;
+  height: 200px;
+}
+
+.logo-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.logo-card .image-placeholder {
+  min-height: 0;
+}
+
+.logo-card .name {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.logo-card.highlight {
+  border-color: #4fc3f7;
+}
+
+.logo-card.highlight .name {
+  color: #4fc3f7;
+  font-weight: 600;
+}
+
+/* ─── App Comparison Section ─────────────────────── */
+
+.app-comparison {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-comparison .slide-label {
+  font-size: 18px;
+}
+
+.comparison-grid {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 95vw;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.comparison-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  max-height: 100%;
+}
+
+.comparison-card .drop-zone {
+  aspect-ratio: 9 / 16;
+}
+
+.comparison-card .image-placeholder {
+  min-height: 0;
+}
+
+.comparison-card img {
+  width: 100%;
+  max-height: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.comparison-card .name {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+
+.comparison-card.highlight .name {
+  color: #4fc3f7;
+  font-weight: 600;
+}
+
+.comparison-card.highlight img {
+  box-shadow: 0 4px 20px rgba(79, 195, 247, 0.2);
+}
+
+/* ─── Settings Panel ─────────────────────────────── */
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.settings-panel {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 32px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.settings-panel h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-panel label span {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-panel input {
+  padding: 10px 14px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.settings-panel input[type="text"]:focus,
+.settings-panel input:not([type]):focus {
+  border-color: #555;
+}
+
+.screen-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.screen-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #4fc3f7;
+  cursor: pointer;
+}
+
+.screen-toggle span {
+  font-size: 14px;
+  color: #ccc;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.screen-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+.settings-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.settings-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.settings-btn.cancel {
+  background: #2a2a2a;
+  color: #aaa;
+}
+
+.settings-btn.save {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+}
+
+.settings-toggle {
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  color: #666 !important;
+  border-color: #2a2a2a !important;
+}
+
+/* ─── Floating Action Buttons ────────────────────── */
+
+.fab-group {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+}
+
+.fab-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fab-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 22px;
+  line-height: 44px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 50;
+  transition: background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+}
