@@ -56,7 +56,7 @@ export default function buildData(names, disabledSlides = []) {
 
   const competitors = []
   if (enabled('logos:a')) competitors.push({ name: competitor1, logo: `${base}/assets/competitors/logos/competitor-a.png` })
-  if (enabled('logos:b')) competitors.push({ name: competitor2, logo: `${base}/assets/competitors/logos/competitor-b.png` })
+  if (enabled('logos:b')) competitors.push({ name: competitor2, logo: `${base}/assets/competitors/logos/competitor1-b.png` })
   if (enabled('logos:c')) competitors.push({ name: competitor3, logo: `${base}/assets/competitors/logos/competitor-c.png` })
   if (enabled('logos:d')) competitors.push({ name: competitor4, logo: `${base}/assets/competitors/logos/competitor-d.png` })
   const showLogosCompare = enabled('logos:compare')
