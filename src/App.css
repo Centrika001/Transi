@@ -123,6 +123,9 @@
   width: 40vw;
   max-height: 50vh;
   flex: none;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
 }
 
 .slide-image {
