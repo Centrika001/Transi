@@ -180,6 +180,7 @@ export default function App() {
           <CompetitorLogosSection
             competitors={data.competitorLogos.competitors}
             showCompare={data.competitorLogos.showCompare}
+            ourLogo={data.competitorLogos.ourLogo}
             slideIndex={slideIndex}
           />
         )

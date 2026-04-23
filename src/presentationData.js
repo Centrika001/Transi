@@ -77,7 +77,7 @@ export default function buildData(names, disabledSlides = []) {
   return {
     ourBrand: { title: 'Our Brand', slides: brandSlides },
     ourApp: { title: ourName, slides: appSlides },
-    competitorLogos: { title: 'Competitor Logos', competitors, showCompare: showLogosCompare },
+    competitorLogos: { title: 'Competitor Logos', competitors, showCompare: showLogosCompare, ourLogo: { name: ourName, logo: `${base}/assets/our-brand/logo.png` } },
     appComparison: { title: 'App Comparison', screens: compareScreens },
   }
 }

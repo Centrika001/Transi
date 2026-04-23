@@ -1,15 +1,16 @@
 import ImageWithFallback from './ImageWithFallback.jsx'
 
-export default function CompetitorLogosSection({ competitors, showCompare, slideIndex }) {
+export default function CompetitorLogosSection({ competitors, showCompare, ourLogo, slideIndex }) {
   const isComparison = showCompare && slideIndex >= competitors.length
 
   if (isComparison) {
+    const allLogos = [ourLogo, ...competitors]
     return (
       <div className="competitor-logos">
-        <div className="slide-label">All Competitors — Side by Side</div>
+        <div className="slide-label">All Logos — Side by Side</div>
         <div className="logo-comparison">
-          {competitors.map((c) => (
-            <div className="logo-card" key={c.name}>
+          {allLogos.map((c) => (
+            <div className={`logo-card ${c === ourLogo ? 'highlight' : ''}`} key={c.name}>
               <ImageWithFallback
                 src={c.logo}
                 alt={c.name}

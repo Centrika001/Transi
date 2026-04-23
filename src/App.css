@@ -321,6 +321,15 @@
   font-weight: 500;
 }
 
+.logo-card.highlight {
+  border-color: #4fc3f7;
+}
+
+.logo-card.highlight .name {
+  color: #4fc3f7;
+  font-weight: 600;
+}
+
 /* ─── App Comparison Section ─────────────────────── */
 
 .app-comparison {
